@@ -54,11 +54,15 @@ public class KurierForm {
                 pridajButtonActPer();
             }
         });
+        for (Kurier kurier : kuriery) {
+            pridajKuriera(kurier);
+        }
     }
 
-    public void saveArrayList() {
-        this.mainForm.ArrayListUpdate(this.kuriery);
+    private void saveArrayList() {
+        this.mainForm.setKuriery(this.kuriery);
     }
+
 
     public void pridajKuriera(Kurier kurier) {
         if (kurier != null) {
@@ -74,8 +78,8 @@ public class KurierForm {
     public void vymazButtonActPer() {
         int cisloRiadku = this.kurierTable.getSelectedRow();
         if (cisloRiadku >= 0) {
+            this.defaultTableModel.removeRow(cisloRiadku);
             this.kuriery.remove(cisloRiadku);
-            this.kurierTable.remove(cisloRiadku);
         }
     }
 

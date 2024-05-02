@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainForm {
-    private final ArrayList<Kurier> kuriery;
+    private ArrayList<Kurier> kuriery;
     private JPanel panel;
     private JButton kurierButton;
 
@@ -29,8 +29,7 @@ public class MainForm {
         frame.pack();
         frame.setVisible(true);
     }
-//    TODO: make setter to update ArrayList
-    public void ArrayListUpdate(ArrayList<Kurier> zoznamKurierov) {
-
+    public void setKuriery(ArrayList<Kurier> kuriery) {
+        this.kuriery = kuriery;
     }
 }

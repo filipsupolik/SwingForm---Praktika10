@@ -19,10 +19,10 @@ public class OknoPridajKuriera {
 
     public OknoPridajKuriera(KurierForm kurierForm) {
         this.kurierForm = kurierForm;
-        var frame = new JFrame();
-        frame.setContentPane(this.panel);
-        frame.setVisible(true);
-        frame.pack();
+        okno = new JFrame("KurierAddForm");
+        okno.setContentPane(this.panel);
+        okno.setVisible(true);
+        okno.pack();
         zrusButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,7 +30,7 @@ public class OknoPridajKuriera {
             }
 
             private void zrusButtonActPer() {
-                frame.dispose();
+                okno.dispose();
             }
         });
         potvrdButton.addActionListener(new ActionListener() {
@@ -40,45 +40,49 @@ public class OknoPridajKuriera {
             }
         });
     }
-    //TODO: in progress, dont know to make this method. Create instance Kurier
     public void pridajButtonActPer() {
         StringBuilder warnings = new StringBuilder();
-        // TODO: atributom meno, priezvisko, plat,id priradit pociatocne hodnoty
-        // prazdne retazce alebo 0
         if (this.idTextField.getText().isEmpty()) {
-            warnings.append("ID kuriera musi byt vyplnene");
+            warnings.append("ID kuriera musi byt vyplnene\n");
         } else {
             try {
                 int id = Integer.parseInt(this.idTextField.getText());
             } catch (NumberFormatException e) {
-                warnings.append("ID musi byt cislo");
+                warnings.append("ID musi byt cislo\n");
             }
         }
         if (this.MenoTextField.getText().isEmpty()) {
-            warnings.append("Meno musi byt vyplnene");
+            warnings.append("Meno musi byt vyplnene\n");
         } else {
             String meno = this.MenoTextField.getText();
         }
 
         if (this.PriezviskoTextField.getText().isEmpty()) {
-            warnings.append("Priezvisko musi byt vyplnene");
+            warnings.append("Priezvisko musi byt vyplnene\n");
         } else {
             String priezvisko = this.PriezviskoTextField.getText();
         }
 
         if (this.PlatTextField.getText().isEmpty()) {
-            warnings.append("Plat kuriera musi byt vyplnene");
+            warnings.append("Plat kuriera musi byt vyplnene\n");
         } else {
             try {
                 int plat = Integer.parseInt(this.PlatTextField.getText());
             } catch (NumberFormatException e) {
-                warnings.append("Plat musi byt cislo");
+                warnings.append("Plat musi byt cislo\n");
             }
         }
 
-        Kurier kurier = null;
+        Kurier kurier = new Kurier(0, "", "", 0);
         if (warnings.length() > 0) {
-            JOptionPane.showMessageDialog(fra);
+            JOptionPane.showMessageDialog(this.okno, warnings.toString(), "Vstupne upozornenia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            kurier.setId(Integer.parseInt(this.idTextField.getText()));
+            kurier.setMeno(this.MenoTextField.getText());
+            kurier.setPriezvisko(this.PriezviskoTextField.getText());
+            kurier.setPlat(Double.parseDouble(this.PlatTextField.getText()));
+            this.okno.dispose();
         }
+        this.kurierForm.pridajKuriera(kurier);
     }
 }
